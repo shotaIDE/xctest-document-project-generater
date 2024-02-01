@@ -5,7 +5,9 @@ import Foundation
     private let outputDirectory: String
 
     static func main() {
-        if CommandLine.arguments.count == 1 || CommandLine.arguments.contains("-h") || CommandLine.arguments.contains("--help") {
+        if CommandLine.arguments.count == 1
+            || CommandLine.arguments.contains("-h")
+            || CommandLine.arguments.contains("--help") {
             printUsage()
             exit(0)
         }
@@ -63,7 +65,8 @@ import Foundation
 
             if !fileManager.fileExists(atPath: destinationDirectory.path) {
                 do {
-                    try fileManager.createDirectory(atPath: destinationDirectory.path, withIntermediateDirectories: true, attributes: nil)
+                    try fileManager.createDirectory(
+                        atPath: destinationDirectory.path, withIntermediateDirectories: true, attributes: nil)
                     print("Created directory: \(destinationDirectory.path)")
                 } catch {
                     print("Failed to create directory in \(destinationDirectory.path): \(error)")

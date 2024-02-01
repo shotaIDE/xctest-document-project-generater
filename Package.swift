@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "extractdoccomments",
     platforms: [
-        .macOS(.v10_15)
+        .macOS(.v12)
     ],
     products: [
         .executable(
@@ -16,7 +16,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.1.0"),
-        .package(url: "https://github.com/apple/swift-syntax.git", exact: "509.1.1")
+        .package(url: "https://github.com/apple/swift-syntax.git", from: "509.0.2"),
+        .package(url: "https://github.com/realm/SwiftLint", from: "0.54.0")
     ],
     targets: [
         .executableTarget(
@@ -24,11 +25,17 @@ let package = Package(
             dependencies: [
                 .product(name: "SwiftSyntax", package: "swift-syntax"),
                 .product(name: "SwiftParser", package: "swift-syntax")
+            ],
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]
         ),
         .testTarget(
             name: "extractdoccommentsTests",
-            dependencies: ["extractdoccomments"]
-        ),
+            dependencies: ["extractdoccomments"],
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
+            ]
+        )
     ]
 )
