@@ -44,11 +44,17 @@ class TestCaseSyntaxVisitor: SyntaxVisitor {
     }
 
     private func extractDocComment(trivia: Trivia) -> DocComment? {
-        return trivia.compactMap { triviaPiece -> String? in
+        let lines = trivia.compactMap { triviaPiece -> String? in
             if case let .docLineComment(text) = triviaPiece {
                 return text
             }
             return nil
         }
+
+        if lines.isEmpty {
+            return nil
+        }
+
+        return lines
     }
 }
