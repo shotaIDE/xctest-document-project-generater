@@ -11,7 +11,7 @@ final class TestCaseConverterTests: XCTestCase {
                 """
             ),
             [
-                TestClass(name: "SomeTests", docComment: nil): [],
+                TestClass(name: "SomeTests", docComment: nil): []
             ]
         )
     }
