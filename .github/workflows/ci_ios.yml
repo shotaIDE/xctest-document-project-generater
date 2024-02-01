@@ -11,14 +11,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  unit-test:
-    name: Run Swift unit tests
+  swift-unit-test:
+    name: Swift unit tests
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
       - name: Setup Swift
         uses: ./.github/actions/setup-swift
-      - name: Run Swift unit tests
+      - name: Swift unit tests
         run: swift test
   swift-lint:
     name: SwiftLint
