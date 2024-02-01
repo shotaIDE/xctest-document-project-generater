@@ -44,38 +44,11 @@ class TestCaseSyntaxVisitor: SyntaxVisitor {
     }
 
     private func extractDocComment(trivia: Trivia) -> DocComment? {
-        let docCommentLines = trivia.compactMap { triviaPiece -> String? in
+        return trivia.compactMap { triviaPiece -> String? in
             if case let .docLineComment(text) = triviaPiece {
                 return text
             }
             return nil
         }
-
-        let docCommentBodies = docCommentLines.map { docCommentLine in
-            docCommentLine
-                .replacingOccurrences(of: "///", with: "")
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-
-        if docCommentBodies.count >= 1 {
-            let docCommentSummary = docCommentBodies[0]
-
-            if docCommentBodies.count >= 3 {
-                let docCommentDetails = docCommentBodies[2...].joined(separator: "\n")
-                return DocComment(
-                    summary: docCommentSummary,
-                    description: docCommentDetails,
-                    lines: docCommentLines
-                )
-            }
-
-            return DocComment(
-                summary: docCommentSummary,
-                description: nil,
-                lines: docCommentLines
-            )
-        }
-
-        return nil
     }
 }
