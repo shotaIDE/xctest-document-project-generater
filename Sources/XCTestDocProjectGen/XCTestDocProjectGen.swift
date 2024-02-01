@@ -1,6 +1,6 @@
 import Foundation
 
-@main public struct ExtractDocComments {
+@main public struct XCTestDocProjectGen {
     private let directoryPath: String
     private let outputDirectory: String
 
@@ -26,7 +26,7 @@ import Foundation
 
     static func printUsage() {
         let usage = """
-        USAGE: extractdoccomments <input directory> <output directory>
+        USAGE: XCTestDocProjectGen <input directory> <output directory>
 
         ARGUMENTS:
             <input directory> (Required)

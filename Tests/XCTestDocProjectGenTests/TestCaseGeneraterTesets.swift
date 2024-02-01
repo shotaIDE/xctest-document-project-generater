@@ -1,4 +1,4 @@
-@testable import extractdoccomments
+@testable import XCTestDocProjectGen
 import XCTest
 
 class GenerateEmptySwiftCodeTests: XCTestCase {
