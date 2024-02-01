@@ -1,0 +1,40 @@
+name: CI / iOS
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-test:
+    name: Run Swift unit tests
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Swift
+        uses: ./.github/actions/setup-swift
+      - name: Run Swift unit tests
+        run: swift test
+  swift-lint:
+    name: SwiftLint
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install SwiftLint
+        run: brew install swiftlint
+      - name: SwiftLint
+        run: swiftlint --strict
+  swift-format:
+    name: SwiftFormat
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Swift
+        uses: ./.github/actions/setup-swift
+      - name: SwiftFormat
+        run: swift package plugin --allow-writing-to-package-directory swiftformat --lint
