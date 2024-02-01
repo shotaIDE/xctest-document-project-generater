@@ -1,4 +1,4 @@
-# XCTest Empty Project Generator
+# XCTest Document Project Generator
 
 ## これは何か？
 
