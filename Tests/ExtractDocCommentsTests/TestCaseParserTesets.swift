@@ -1,5 +1,5 @@
-import XCTest
 @testable import extractdoccomments
+import XCTest
 
 final class TestCaseConverterTests: XCTestCase {
     func testExample() throws {

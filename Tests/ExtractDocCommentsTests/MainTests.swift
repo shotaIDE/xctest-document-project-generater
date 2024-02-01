@@ -1,5 +1,5 @@
-import XCTest
 @testable import extractdoccomments
+import XCTest
 
 class MainTests: XCTestCase {
     func testNoArgs() {

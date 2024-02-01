@@ -13,10 +13,23 @@ concurrency:
 jobs:
   swift-lint:
     name: SwiftLint
-    runs-on: ubuntu-latest
+    runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
+      - name: Install SwiftLint
+        run: brew install swiftlint
       - name: SwiftLint
-        uses: norio-nomura/action-swiftlint@3.2.1
+        run: swiftlint --strict
+  swift-format:
+    name: SwiftFormat
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v3
         with:
-          args: --strict
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+      - name: SwiftFormat
+        run: swift package plugin --allow-writing-to-package-directory swiftformat --lint

@@ -26,14 +26,14 @@ import Foundation
 
     static func printUsage() {
         let usage = """
-            USAGE: extractdoccomments <input directory> <output directory>
+        USAGE: extractdoccomments <input directory> <output directory>
 
-            ARGUMENTS:
-                <input directory> (Required)
-                    The path of the output Symbol Graph JSON file representing the snippets for the a module or package
-                <output directory> (Required)
-                    The module name to use for the Symbol Graph (typically should be the package name)
-            """
+        ARGUMENTS:
+            <input directory> (Required)
+                The path of the output Symbol Graph JSON file representing the snippets for the a module or package
+            <output directory> (Required)
+                The module name to use for the Symbol Graph (typically should be the package name)
+        """
         print(usage)
     }
 
@@ -49,11 +49,11 @@ import Foundation
 
         print("Found \(testFiles.count) test files in \(directoryPath)")
 
-        try testFiles.forEach { testFile in
+        for testFile in testFiles {
             let filePath = (directoryPath as NSString).appendingPathComponent(testFile)
             guard let fileSource = try? String(contentsOfFile: filePath) else {
                 print("Unable to read file at path: \(filePath)")
-                return
+                continue
             }
 
             let testClasses = parseSwiftCode(source: fileSource)
@@ -66,11 +66,12 @@ import Foundation
             if !fileManager.fileExists(atPath: destinationDirectory.path) {
                 do {
                     try fileManager.createDirectory(
-                        atPath: destinationDirectory.path, withIntermediateDirectories: true, attributes: nil)
+                        atPath: destinationDirectory.path, withIntermediateDirectories: true, attributes: nil
+                    )
                     print("Created directory: \(destinationDirectory.path)")
                 } catch {
                     print("Failed to create directory in \(destinationDirectory.path): \(error)")
-                    return
+                    continue
                 }
             }
 
