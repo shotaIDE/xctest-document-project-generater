@@ -2,7 +2,7 @@ import Foundation
 
 @main public struct XCTestDocProjectGen {
     private let directoryPath: String
-    private let outputDirectory: String
+    private let outputRootDirectory: String
 
     static func main() {
         if CommandLine.arguments.count == 1
@@ -40,46 +40,72 @@ import Foundation
 
     init(directoryPath: String, outputDirectory: String) {
         self.directoryPath = directoryPath
-        self.outputDirectory = outputDirectory
+        self.outputRootDirectory = outputDirectory
     }
 
     func run() throws {
         let fileManager = FileManager.default
-        let files = try fileManager.contentsOfDirectory(atPath: directoryPath)
-        let testFiles = files.filter { $0.hasSuffix("Tests.swift") }
+        let originalCandidateFileRelativePaths = try fileManager.contentsOfDirectory(atPath: directoryPath)
+        let originalFileRelativePaths = originalCandidateFileRelativePaths.filter { $0.hasSuffix("Tests.swift") }
 
-        print("Found \(testFiles.count) test files in \(directoryPath)")
+        print("Found \(originalFileRelativePaths.count) test files in \(directoryPath)")
+        if originalFileRelativePaths.isEmpty {
+            exit(0)
+        }
 
-        for testFile in testFiles {
-            let filePath = (directoryPath as NSString).appendingPathComponent(testFile)
-            guard let fileSource = try? String(contentsOfFile: filePath) else {
-                print("Unable to read file at path: \(filePath)")
+        guard let packageSwiftFileOriginalUrl = Bundle.module.url(forResource: "Package", withExtension: "swift") else {
+            print("Package.swift is not found. This executable is broken.")
+            exit(1)
+        }
+
+        let packageSwiftFileOutputUrl = URL(fileURLWithPath: outputRootDirectory)
+            .appendingPathComponent("Package.swift")
+
+        try createParentDirectoryIfNeeded(fileUrl: packageSwiftFileOutputUrl)
+
+        do {
+            try fileManager.copyItem(at: packageSwiftFileOriginalUrl, to: packageSwiftFileOutputUrl)
+        } catch {
+            print("Failed to copy Package.swift to \(packageSwiftFileOutputUrl.path): \(error)")
+            exit(2)
+        }
+
+        let outputSourceDirectory = URL(fileURLWithPath: outputRootDirectory)
+            .appendingPathComponent("Sources")
+            .appendingPathComponent("XCTestDocProject")
+
+        for originalFileRelativePath in originalFileRelativePaths {
+            let originalFilePath = (directoryPath as NSString).appendingPathComponent(originalFileRelativePath)
+            guard let originalSource = try? String(contentsOfFile: originalFilePath) else {
+                print("Unable to read file at path: \(originalFilePath)")
                 continue
             }
 
-            let testClasses = parseSwiftCode(source: fileSource)
+            let testClasses = parseSwiftCode(source: originalSource)
             let swiftCode = generateEmptySwiftCode(testClasses: testClasses)
 
-            let destinationPath = (outputDirectory as NSString).appendingPathComponent(testFile)
-            let destinationUrl = URL(fileURLWithPath: destinationPath)
-            let destinationDirectory = destinationUrl.deletingLastPathComponent()
+            let destinationUrl = outputSourceDirectory.appendingPathComponent(originalFileRelativePath)
 
-            if !fileManager.fileExists(atPath: destinationDirectory.path) {
-                do {
-                    try fileManager.createDirectory(
-                        atPath: destinationDirectory.path, withIntermediateDirectories: true, attributes: nil
-                    )
-                    print("Created directory: \(destinationDirectory.path)")
-                } catch {
-                    print("Failed to create directory in \(destinationDirectory.path): \(error)")
-                    continue
-                }
-            }
+            try createParentDirectoryIfNeeded(fileUrl: destinationUrl)
 
+            let destinationPath = destinationUrl.path
             fileManager.createFile(atPath: destinationPath, contents: nil, attributes: nil)
             try swiftCode.write(toFile: destinationPath, atomically: true, encoding: .utf8)
 
             print("Output Swift code in \(destinationPath)")
+        }
+    }
+
+    private func createParentDirectoryIfNeeded(fileUrl: URL) throws {
+        let directoryUrl = fileUrl.deletingLastPathComponent()
+        let directoryPath = directoryUrl.path
+
+        let fileManager = FileManager.default
+
+        if !fileManager.fileExists(atPath: directoryPath) {
+            try fileManager.createDirectory(
+                atPath: directoryPath, withIntermediateDirectories: true, attributes: nil
+            )
         }
     }
 }

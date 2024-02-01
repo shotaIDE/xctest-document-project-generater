@@ -27,6 +27,9 @@ let package = Package(
                 .product(name: "SwiftSyntax", package: "swift-syntax"),
                 .product(name: "SwiftParser", package: "swift-syntax")
             ],
+            resources: [
+                .process("Template/Package.swift")
+            ],
             plugins: [
                 .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]
