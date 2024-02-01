@@ -18,7 +18,7 @@ class TestCaseSyntaxVisitor: SyntaxVisitor {
         let docCommentBodies = docCommentLines.map { docCommentLine in
             docCommentLine
                 .replacingOccurrences(of: "///", with: "")
-                .trimmingCharacters(in: .whitespacesAndNewlines)
+                .trimmingCharacters(in: .whitespacesAndNewlines) // Test
         }
         let docComment: DocComment?
         if docCommentBodies.count >= 1 {
