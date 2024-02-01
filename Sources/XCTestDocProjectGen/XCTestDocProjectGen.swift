@@ -40,7 +40,7 @@ import Foundation
 
     init(directoryPath: String, outputDirectory: String) {
         self.directoryPath = directoryPath
-        self.outputRootDirectory = outputDirectory
+        outputRootDirectory = outputDirectory
     }
 
     func run() throws {
