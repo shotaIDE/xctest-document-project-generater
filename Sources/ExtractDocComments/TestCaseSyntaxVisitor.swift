@@ -6,10 +6,10 @@ class TestCaseSyntaxVisitor: SyntaxVisitor {
     var currentTestClass: TestClass?
     var classes = [TestClass: [TestCase]]()
 
-    public override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
+    override public func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
         let className = node.name.text
         let docCommentLines = node.leadingTrivia.compactMap { triviaPiece -> String? in
-            if case .docLineComment(let text) = triviaPiece {
+            if case let .docLineComment(text) = triviaPiece {
                 return text
             }
             return nil
@@ -58,7 +58,7 @@ class TestCaseSyntaxVisitor: SyntaxVisitor {
         return .visitChildren
     }
 
-    public override func visit(_ node: FunctionDeclSyntax) -> SyntaxVisitorContinueKind {
+    override public func visit(_ node: FunctionDeclSyntax) -> SyntaxVisitorContinueKind {
         let function: FunctionDeclSyntax = node
         let name = function.name.text
         if !name.hasPrefix("test") {
@@ -70,7 +70,7 @@ class TestCaseSyntaxVisitor: SyntaxVisitor {
         print("Found test case \"\(name)\" in test class \"\(testClass.name)\"")
 
         let docCommentLines = node.leadingTrivia.compactMap { triviaPiece -> String? in
-            if case .docLineComment(let text) = triviaPiece {
+            if case let .docLineComment(text) = triviaPiece {
                 return text
             }
             return nil
