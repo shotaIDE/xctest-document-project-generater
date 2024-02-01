@@ -30,9 +30,10 @@ import Foundation
 
         ARGUMENTS:
             <input directory> (Required)
-                The path of the output Symbol Graph JSON file representing the snippets for the a module or package
+                The path of the folder containing Swift files in a test target of Xcode project
+                for which you want to generate documents.
             <output directory> (Required)
-                The module name to use for the Symbol Graph (typically should be the package name)
+                The path of the project's root folder for generating documents.
         """
         print(usage)
     }
