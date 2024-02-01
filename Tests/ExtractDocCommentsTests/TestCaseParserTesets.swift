@@ -1,5 +1,5 @@
-import XCTest
 @testable import extractdoccomments
+import XCTest
 
 final class TestCaseConverterTests: XCTestCase {
     func testExample() throws {
@@ -11,7 +11,7 @@ final class TestCaseConverterTests: XCTestCase {
                 """
             ),
             [
-                TestClass(name: "SomeTests", docComment: nil): []
+                TestClass(name: "SomeTests", docComment: nil): [],
             ]
         )
     }
