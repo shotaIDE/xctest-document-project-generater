@@ -1,10 +1,10 @@
-name: SwiftLint
+name: CI / iOS
 
 on:
   pull_request:
 
 jobs:
-  SwiftLint:
+  check-swift-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
