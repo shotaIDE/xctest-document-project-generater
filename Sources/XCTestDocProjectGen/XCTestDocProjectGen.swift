@@ -20,7 +20,7 @@ import Foundation
         do {
             try module.run()
         } catch {
-            print("An error occurred while reading the directory \(directoryPath): \(error)")
+            print("An error occurred: \(error)")
         }
     }
 
@@ -78,7 +78,7 @@ import Foundation
             fileManager.createFile(atPath: destinationPath, contents: nil, attributes: nil)
             try swiftCode.write(toFile: destinationPath, atomically: true, encoding: .utf8)
 
-            print("Output markdown in \(destinationPath)")
+            print("Output Swift code in \(destinationPath)")
         }
     }
 }
