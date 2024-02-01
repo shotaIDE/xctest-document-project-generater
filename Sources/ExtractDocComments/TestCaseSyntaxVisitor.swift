@@ -2,8 +2,8 @@ import Foundation
 import SwiftSyntax
 
 class TestCaseSyntaxVisitor: SyntaxVisitor {
-    var currentClassName: String? = nil
-    var currentTestClass: TestClass? = nil
+    var currentClassName: String?
+    var currentTestClass: TestClass?
     var classes = [TestClass: [TestCase]]()
 
     public override func visit(_ node: ClassDeclSyntax) -> SyntaxVisitorContinueKind {
