@@ -6,7 +6,7 @@ private let testMethodIndent = "    "
 public func generateEmptySwiftCode(testClasses: [TestClass: [TestCase]]) -> String {
     let testClassSwiftCodeList = testClasses.map { (testClass: TestClass, testCases: [TestCase]) in
         let testCaseSwiftCodeList = testCases.map { testCase in
-            let docCommentString: String = if let docCommentStrings = testCase.docComment?.lines.map({ line in
+            let docCommentSwiftCode: String = if let docCommentStrings = testCase.docComment?.map({ line in
                 "\(testMethodIndent)\(line)"
             }) {
                 docCommentStrings.joined(separator: "\n") + "\n"
@@ -14,20 +14,20 @@ public func generateEmptySwiftCode(testClasses: [TestClass: [TestCase]]) -> Stri
                 ""
             }
 
-            let testCaseMethodString = "\(testMethodIndent)func \(testCase.name)() {}"
+            let testCaseSwiftCode = "\(testMethodIndent)func \(testCase.name)() {}"
 
-            return "\(docCommentString)\(testCaseMethodString)"
+            return "\(docCommentSwiftCode)\(testCaseSwiftCode)"
         }
 
         let testCasesSwiftCode = testCaseSwiftCodeList.joined(separator: "\n\n")
 
-        let docCommentString: String = if let docCommentStrings = testClass.docComment?.lines {
+        let docCommentSwiftCode = if let docCommentStrings = testClass.docComment {
             docCommentStrings.joined(separator: "\n") + "\n"
         } else {
             ""
         }
 
-        let classSwiftString = """
+        let testClassSwiftCode = """
         class \(testClass.name) {
             private init() {}
 
@@ -35,7 +35,7 @@ public func generateEmptySwiftCode(testClasses: [TestClass: [TestCase]]) -> Stri
         }
         """
 
-        return "\(docCommentString)\(classSwiftString)"
+        return "\(docCommentSwiftCode)\(testClassSwiftCode)"
     }
 
     return testClassSwiftCodeList.joined(separator: "\n\n")

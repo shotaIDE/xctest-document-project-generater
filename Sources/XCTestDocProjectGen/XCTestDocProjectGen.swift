@@ -1,6 +1,6 @@
 import Foundation
 
-@main public struct ExtractDocComments {
+@main public struct XCTestDocProjectGen {
     private let directoryPath: String
     private let outputDirectory: String
 
@@ -20,19 +20,20 @@ import Foundation
         do {
             try module.run()
         } catch {
-            print("An error occurred while reading the directory \(directoryPath): \(error)")
+            print("An error occurred: \(error)")
         }
     }
 
     static func printUsage() {
         let usage = """
-        USAGE: extractdoccomments <input directory> <output directory>
+        USAGE: XCTestDocProjectGen <input directory> <output directory>
 
         ARGUMENTS:
             <input directory> (Required)
-                The path of the output Symbol Graph JSON file representing the snippets for the a module or package
+                The path of the folder containing Swift files in a test target of Xcode project
+                for which you want to generate documents.
             <output directory> (Required)
-                The module name to use for the Symbol Graph (typically should be the package name)
+                The path of the project's root folder for generating documents.
         """
         print(usage)
     }
@@ -78,7 +79,7 @@ import Foundation
             fileManager.createFile(atPath: destinationPath, contents: nil, attributes: nil)
             try swiftCode.write(toFile: destinationPath, atomically: true, encoding: .utf8)
 
-            print("Output markdown in \(destinationPath)")
+            print("Output Swift code in \(destinationPath)")
         }
     }
 }

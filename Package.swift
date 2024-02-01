@@ -4,14 +4,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "extractdoccomments",
+    name: "XCTestDocProjectGen",
     platforms: [
         .macOS(.v12)
     ],
     products: [
         .executable(
-            name: "extractdoccomments",
-            targets: ["extractdoccomments"]
+            name: "XCTestDocProjectGen",
+            targets: ["XCTestDocProjectGen"]
         )
     ],
     dependencies: [
@@ -22,7 +22,7 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "extractdoccomments",
+            name: "XCTestDocProjectGen",
             dependencies: [
                 .product(name: "SwiftSyntax", package: "swift-syntax"),
                 .product(name: "SwiftParser", package: "swift-syntax")
@@ -32,8 +32,8 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "extractdoccommentsTests",
-            dependencies: ["extractdoccomments"],
+            name: "XCTestDocProjectGenTests",
+            dependencies: ["XCTestDocProjectGen"],
             plugins: [
                 .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]

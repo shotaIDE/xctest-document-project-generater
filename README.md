@@ -1,4 +1,4 @@
-# XCTest Empty Project Generator
+# XCTest Document Project Generator
 
 ## これは何か？
 
@@ -40,7 +40,7 @@ let package = Package(
 以下のコマンドを実行して空のモジュールを作ります。
 
 ```shell
-swift run extractdoccomments "SampleUITests/" "~/Desktop/SampleUITestsEmptyPackage"
+swift run XCTestDocProjectGen "SampleUITests/" "~/Desktop/SampleUITestsEmptyPackage"
 ```
 
 以下のコマンドを実行してドキュメントを生成します。
