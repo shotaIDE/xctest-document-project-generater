@@ -6,8 +6,14 @@
 
 ### SwiftFormat
 
-SwiftFormat を Swift Package Manager により導入しています。
+[SwiftFormat](https://github.com/nicklockwood/SwiftFormat) を Swift Package Manager により導入しています。
 
 Xcode 上でフォーマッターをかけるにるには以下を参考にしてください。
 
 https://github.com/nicklockwood/SwiftFormat/tree/main?tab=readme-ov-file#trigger-plugin-from-xcode
+
+### CSpell
+
+[CSpell](https://github.com/streetsidesoftware/cspell) を導入しています。
+
+CSpell により指摘された場合は、以下の手順を元に
