@@ -32,7 +32,10 @@ let package = Package(
         ),
         .testTarget(
             name: "extractdoccommentsTests",
-            dependencies: ["extractdoccomments"]
+            dependencies: ["extractdoccomments"],
+            plugins: [
+                .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
+            ]
         )
     ]
 )

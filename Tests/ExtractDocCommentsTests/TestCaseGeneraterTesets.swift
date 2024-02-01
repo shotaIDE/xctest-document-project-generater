@@ -27,8 +27,9 @@ class GenerateEmptySwiftCodeTests: XCTestCase {
         // Given
         let docComment = DocComment(summary: "Test Example", description: nil, lines: ["/// This is a test case"])
         let testCases = [TestCase(name: "testDocCommentExample", docComment: docComment)]
-        let classDocComment = DocComment(summary: "Test Class Example", description: nil, lines: ["/// This is a test class"])
-        let testClasses: [TestClass: [TestCase]] = [TestClass(name: "DocCommentTests", docComment: classDocComment): testCases]
+        let classDocComment = DocComment(
+            summary: "Test Class Example", description: nil, lines: ["/// This is a test class"])
+        let testClasses = [TestClass(name: "DocCommentTests", docComment: classDocComment): testCases]
 
         // When
         let generatedCode = generateEmptySwiftCode(testClasses: testClasses)
