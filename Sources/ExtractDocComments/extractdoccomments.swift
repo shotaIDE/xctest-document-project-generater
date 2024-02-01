@@ -6,7 +6,7 @@ import Foundation
 
     static func main() {
         if CommandLine.arguments.count == 1
-            || CommandLine.arguments.contains("-h")
+            || CommandLine.arguments.contains("-h") 
             || CommandLine.arguments.contains("--help") {
             printUsage()
             exit(0)
