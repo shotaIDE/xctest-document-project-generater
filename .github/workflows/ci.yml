@@ -45,7 +45,7 @@ jobs:
       - name: Install Code Spell Checker
         run: npm install -g cspell
       - name: Check Code Spell
-        run: cspell . > cspell.log
+        run: cspell . --config cspell.json . > cspell.log
       - name: Run reviewdog for Code Spell Checker
         if: failure()
         env:
