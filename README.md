@@ -1,24 +1,22 @@
 # XCTest Document Project Generator
 
-## これは何か？
+## What is this?
 
 Xcode のプロジェクトにおけるテストターゲットのドキュメントを生成したいケースがあります。
 
-ところが、Xcode のドキュメント生成機能や DocC、jazzy などのドキュメント生成ツールは、Xcode で直接実行できるターゲットに対してしかドキュメントを生成してくれません。
+ところが、Xcode のドキュメント生成機能や [Swift-DocC](https://www.swift.org/documentation/docc/)、[jazzy](https://github.com/realm/jazzy) などのドキュメント生成ツールは、Xcode で直接実行できるターゲットに対してしかドキュメントを生成してくれません。
 
 このツールは、上記のツールでテストターゲットに含まれるファイル群のドキュメントコメントのドキュメントを生成できるようにします。
 
-## 基本的なアイデア
+## Base idea
 
-Swift Syntax により、テストターゲットに含まれるテスト Swift ファイルの構文解析をします。
+![コンセプト解説図](/Docs/convert-image.gif)
 
-クラス名とクラスの Doc コメント、さらにクラスに含まれるテストメソッド名とテストメソッドの Doc コメントを収集します。
+このツールにより、ドキュメント生成に必要な情報だけを記載した動作がない Swift ファイルを生成します。
 
-ドキュメント生成に必要な情報だけを記載した動作がない Swift ファイルを生成します。
+別のツールにより、上記で生成した Swift ファイル群に対してドキュメント生成を行います。
 
-（ツールの動作外）動作がない Swift ファイル群に対してドキュメント生成を行います。
-
-## Usage
+## Install
 
 Xcode プロジェクトの Swift Package Manager を利用して、依存関係として登録します。
 
@@ -27,7 +25,7 @@ let package = Package(
     // name, platforms, products, etc.
     dependencies: [
         // other dependencies
-        .package(url: "https://github.com/organization/repository", from: "1.0.0"),
+        .package(url: "https://github.com/shotaIDE/xctest-document-project-generate", from: "0.1.0")
     ],
     targets: [
         // targets
@@ -35,19 +33,36 @@ let package = Package(
 )
 ```
 
-## ドキュメントを生成する
+さらに、別のツールの Swift-DocC Plugin を依存関係として登録します。
 
-以下のコマンドを実行して空のモジュールを作ります。
+```swift:Package.swift
+let package = Package(
+    // name, platforms, products, etc.
+    dependencies: [
+        // other dependencies
+        .package(url: "https://github.com/shotaIDE/xctest-document-project-generate", from: "0.1.0"),
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.1.0")
+    ],
+    targets: [
+        // targets
+    ]
+)
+```
+
+## Usage
+
+以下のコマンドを実行してドキュメント生成用のプロジェクトを作ります。
 
 ```shell
-swift run XCTestDocProjectGen "SampleUITests/" "~/Desktop/SampleUITestsEmptyPackage"
+swift package --allow-writing-to-directory "~/Desktop/XCTestDocProject" \
+    XCTestDocProjectGen "path/to/your/test/swift/directory" "~/Desktop/XCTestDocProject"
 ```
 
 以下のコマンドを実行してドキュメントを生成します。
 
 ```shell
-cd "~/Desktop/SampleUITestsEmptyPackage"
-swift package --allow-writing-to-directory ./SampleUITests generate-documentation --target emptyxctestmodule --output-path ./SampleUITests
+cd "~/Desktop/XCTestDocProject"
+swift package --allow-writing-to-directory ./XCTestDocProject generate-documentation --target XCTestDocProject --output-path ./SampleUITests
 ```
 
 ドキュメント生成の詳しい内容は、[Swift-DocC Plugin](https://apple.github.io/swift-docc-plugin/documentation/swiftdoccplugin/) のドキュメントを参照してください。
