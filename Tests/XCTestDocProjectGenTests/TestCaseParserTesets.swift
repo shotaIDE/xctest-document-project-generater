@@ -1,4 +1,4 @@
-@testable import XCTestDocProjectGen
+@testable import XCTestDocProjectGenCommandLineTool
 import XCTest
 
 final class TestCaseConverterTests: XCTestCase {

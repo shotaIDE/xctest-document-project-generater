@@ -1,6 +1,6 @@
 import Foundation
 
-@main public struct XCTestDocProjectGen {
+@main public struct XCTestDocProjectGenCommandLineTool {
     private let directoryPath: String
     private let outputRootDirectory: String
 

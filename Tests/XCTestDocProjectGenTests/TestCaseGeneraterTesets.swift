@@ -1,5 +1,5 @@
 import XCTest
-@testable import XCTestDocProjectGen
+@testable import XCTestDocProjectGenCommandLineTool
 
 class GenerateEmptySwiftCodeTests: XCTestCase {
     func testGenerateEmptySwiftCodeWithoutDocComments() {
