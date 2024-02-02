@@ -4,7 +4,7 @@
 
 Xcode のプロジェクトにおけるテストターゲットのドキュメントを生成したいケースがあります。
 
-ところが、Xcode のドキュメント生成機能や [Swift DocC](https://www.swift.org/documentation/docc/)、[jazzy](https://github.com/realm/jazzy) などのドキュメント生成ツールは、Xcode で直接実行できるターゲットに対してしかドキュメントを生成してくれません。
+ところが、Xcode のドキュメント生成機能や [Swift-DocC](https://www.swift.org/documentation/docc/)、[jazzy](https://github.com/realm/jazzy) などのドキュメント生成ツールは、Xcode で直接実行できるターゲットに対してしかドキュメントを生成してくれません。
 
 このツールは、上記のツールでテストターゲットに含まれるファイル群のドキュメントコメントのドキュメントを生成できるようにします。
 
