@@ -54,15 +54,19 @@ let package = Package(
 以下のコマンドを実行してドキュメント生成用のプロジェクトを作ります。
 
 ```shell
-swift package --allow-writing-to-directory "~/Desktop/XCTestDocProject" \
-    XCTestDocProjectGen "path/to/your/test/swift/directory" "~/Desktop/XCTestDocProject"
+swift run XCTestDocProjectGen path/to/your/test/swift/directory XCTestDocProject
 ```
+
+> [!NOTE]
+> 現在 Swift Package Manager では標準のライブラリ以外を利用してプラグインを開発することが許可されていません。
+> 本ツールでは Swift Syntax などの標準ではないライブラリに依存しているため、現在プラグインとしての利用はサポートされていません。
+> See https://github.com/apple/swift-package-manager/blob/main/Documentation/Plugins.md#implementing-the-command-plugin-script for more information.
 
 以下のコマンドを実行してドキュメントを生成します。
 
 ```shell
-cd "~/Desktop/XCTestDocProject"
-swift package --allow-writing-to-directory ./XCTestDocProject generate-documentation --target XCTestDocProject --output-path ./SampleUITests
+cd XCTestDocProject
+swift package generate-documentation
 ```
 
 ドキュメント生成の詳しい内容は、[Swift-DocC Plugin](https://apple.github.io/swift-docc-plugin/documentation/swiftdoccplugin/) のドキュメントを参照してください。
