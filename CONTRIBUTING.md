@@ -31,3 +31,11 @@ bundle install
 ```shell
 bundle exec pod spec lint XCTestDocProjectGen.podspec
 ```
+
+#### Publish
+
+以下のコマンドを実行する。
+
+```shell
+pod trunk push
+```
