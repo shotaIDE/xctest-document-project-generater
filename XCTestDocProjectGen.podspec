@@ -2,7 +2,7 @@
 
 Pod::Spec.new do |spec|
   spec.name = 'XCTestDocProjectGen'
-  spec.version = '0.0.1'
+  spec.version = '0.0.2'
   spec.summary = 'Create a project to generate documents from XCTest targets.'
   spec.homepage = 'https://github.com/shotaIDE/xctest-document-project-generater'
   spec.license = { type: 'MIT', file: 'LICENSE.txt' }
