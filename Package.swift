@@ -6,12 +6,12 @@ import PackageDescription
 let package = Package(
     name: "XCTestDocProjectGen",
     platforms: [
-        .macOS(.v13)
+        .macOS(.v12)
     ],
     products: [
         .executable(
-            name: "XCTestDocProjectGenCommandLineTool",
-            targets: ["XCTestDocProjectGenCommandLineTool"]
+            name: "XCTestDocProjectGen",
+            targets: ["XCTestDocProjectGen"]
         )
     ],
     dependencies: [
@@ -22,7 +22,7 @@ let package = Package(
     ],
     targets: [
         .executableTarget(
-            name: "XCTestDocProjectGenCommandLineTool",
+            name: "XCTestDocProjectGen",
             dependencies: [
                 .product(name: "SwiftSyntax", package: "swift-syntax"),
                 .product(name: "SwiftParser", package: "swift-syntax")
@@ -34,18 +34,9 @@ let package = Package(
                 .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]
         ),
-        .plugin(
-            name: "XCTestDocProjectGen",
-            capability: .command(
-                intent: .custom(verb: "xctest-doc-project-gen", description: "XCTest Document Project Generater")
-            ),
-            dependencies: [
-                .target(name: "XCTestDocProjectGenCommandLineTool")
-            ]
-        ),
         .testTarget(
             name: "XCTestDocProjectGenTests",
-            dependencies: ["XCTestDocProjectGenCommandLineTool"],
+            dependencies: ["XCTestDocProjectGen"],
             plugins: [
                 .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
             ]
