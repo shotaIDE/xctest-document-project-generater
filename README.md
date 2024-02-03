@@ -18,6 +18,26 @@ Xcode のプロジェクトにおけるテストターゲットのドキュメ�
 
 ## Install
 
+CocoaPods または Swift Package Manager を利用してインストールします。
+
+### CocoaPods
+
+Add `pod 'XCTestDocProjectGen'` similar to the following to your `Podfile`:
+
+```ruby:Podfile
+target 'MyApp' do
+  pod 'XCTestDocProjectGen'
+end
+```
+
+以下のコマンドを実行してインストールします。
+
+```shell
+pod install
+```
+
+### Swift Package Manager
+
 Xcode プロジェクトの Swift Package Manager を利用して、依存関係として登録します。
 
 ```swift:Package.swift
@@ -51,6 +71,23 @@ let package = Package(
 
 ## Usage
 
+ドキュメント生成には、以下の手順が必要です。
+
+1. ドキュメント生成用のプロジェクトを作成する
+2. ドキュメントを生成する
+
+### ドキュメント生成用のプロジェクトを作成する
+
+#### CocoaPods
+
+以下のコマンドを実行してドキュメント生成用のプロジェクトを作ります。
+
+```shell
+Pods/XCTestDocProjectGen/XCTestDocProjectGen  path/to/your/test/swift/directory XCTestDocProject
+```
+
+#### Swift Package Manager
+
 以下のコマンドを実行してドキュメント生成用のプロジェクトを作ります。
 
 ```shell
@@ -61,6 +98,8 @@ swift run XCTestDocProjectGen path/to/your/test/swift/directory XCTestDocProject
 > 現在 Swift Package Manager では標準のライブラリ以外を利用してプラグインを開発することが許可されていません。
 > 本ツールでは Swift Syntax などの標準ではないライブラリに依存しているため、現在プラグインとしての利用はサポートされていません。
 > See https://github.com/apple/swift-package-manager/blob/main/Documentation/Plugins.md#implementing-the-command-plugin-script for more information.
+
+### ドキュメントを生成する
 
 以下のコマンドを実行してドキュメントを生成します。
 
