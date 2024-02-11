@@ -18,23 +18,7 @@ Xcode のプロジェクトにおけるテストターゲットのドキュメ�
 
 ## Install
 
-CocoaPods または Swift Package Manager を利用してインストールします。
-
-### CocoaPods
-
-Add `pod 'XCTestDocProjectGen'` similar to the following to your `Podfile`:
-
-```ruby:Podfile
-target 'MyApp' do
-  pod 'XCTestDocProjectGen'
-end
-```
-
-以下のコマンドを実行してインストールします。
-
-```shell
-pod install
-```
+Swift Package Manager を利用してインストールします。
 
 ### Swift Package Manager
 
@@ -77,14 +61,6 @@ let package = Package(
 2. ドキュメントを生成する
 
 ### ドキュメント生成用のプロジェクトを作成する
-
-#### CocoaPods
-
-以下のコマンドを実行してドキュメント生成用のプロジェクトを作ります。
-
-```shell
-Pods/XCTestDocProjectGen/XCTestDocProjectGen  path/to/your/test/swift/directory XCTestDocProject
-```
 
 #### Swift Package Manager
 
