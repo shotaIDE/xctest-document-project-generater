@@ -1,24 +1,24 @@
 # Contributing
 
-本ドキュメントは、開発に必要な手順を記載したものです。
+This document is a guide to the development process.
 
-## 開発する
+## Environment
 
 ### SwiftFormat
 
-SwiftFormat を Swift Package Manager により導入しています。
+SwiftFormat is introduced by Swift Package Manager.
 
-Xcode 上でフォーマッターをかけるにるには以下を参考にしてください。
+To format Swift codes on Xcode, see the following.
 
 https://github.com/nicklockwood/SwiftFormat/tree/main?tab=readme-ov-file#trigger-plugin-from-xcode
 
-### CocoaPods
+## Develop as a CocoaPods library
 
-#### Setup
+#### Environment
 
-[rbenv](https://github.com/rbenv/rbenv) をインストールします。
+Install [rbenv](https://github.com/rbenv/rbenv).
 
-以下コマンドにより CocoaPods とその依存関係をインストールします。
+Install CocoaPods and its dependencies with the following command.
 
 ```shell
 bundle install
@@ -26,7 +26,7 @@ bundle install
 
 #### Lint Pod spec file
 
-以下コマンドにより Pod spec ファイルをチェックします。
+Check the Pod spec file with the following command.
 
 ```shell
 bundle exec pod spec lint XCTestDocProjectGen.podspec
@@ -34,7 +34,7 @@ bundle exec pod spec lint XCTestDocProjectGen.podspec
 
 #### Publish
 
-以下のコマンドを実行する。
+Run the following command.
 
 ```shell
 pod trunk push
