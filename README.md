@@ -1,28 +1,30 @@
 # XCTest Document Project Generator
 
+A tool for generating documents from doc comments in test files included in Xcode test targets.
+
 ## What is this?
 
-Xcode のプロジェクトにおけるテストターゲットのドキュメントを生成したいケースがあります。
+Sometimes you might want to generate documents for test codes in Xcode test targets.
 
-ところが、Xcode のドキュメント生成機能や [Swift-DocC](https://www.swift.org/documentation/docc/)、[jazzy](https://github.com/realm/jazzy) などのドキュメント生成ツールは、Xcode で直接実行できるターゲットに対してしかドキュメントを生成してくれません。
+However, the documents generator in Xcode or [Swift-DocC](https://www.swift.org/documentation/docc/), [jazzy](https://github.com/realm/jazzy) only generates documents for targets that can be run directly in Xcode.
 
-このツールは、上記のツールでテストターゲットに含まれるファイル群のドキュメントコメントのドキュメントを生成できるようにします。
+This tool allows the tools mentioned above to generate documents for test codes in test targets.
 
 ## Base idea
 
-![コンセプト解説図](/Docs/convert-image.gif)
+![Concept explanation](/Docs/convert-image.gif)
 
-このツールにより、ドキュメント生成に必要な情報だけを記載した動作がない Swift ファイルを生成します。
+This tool generates a non-behavioral Swift file that contains only the information needed to generate documents.
 
-別のツールにより、上記で生成した Swift ファイル群に対してドキュメント生成を行います。
+Use another tool to generate documents for the Swift files generated above.
 
 ## Install
 
-Swift Package Manager を利用してインストールします。
+Install using Swift Package Manager.
 
 ### Swift Package Manager
 
-Xcode プロジェクトの Swift Package Manager を利用して、依存関係として登録します。
+Register as a dependency in `Package.swift`.
 
 ```swift:Package.swift
 let package = Package(
@@ -37,51 +39,35 @@ let package = Package(
 )
 ```
 
-さらに、別のツールの Swift-DocC Plugin を依存関係として登録します。
-
-```swift:Package.swift
-let package = Package(
-    // name, platforms, products, etc.
-    dependencies: [
-        // other dependencies
-        .package(url: "https://github.com/shotaIDE/xctest-document-project-generate", from: "0.1.0"),
-        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.1.0")
-    ],
-    targets: [
-        // targets
-    ]
-)
-```
+> [!NOTE]
+> Currently, plugin usage is not supported.
+> This is because Swift Package Manager does not allow the development of plugins using libraries other than the standard library and this tool depends on non-standard libraries such as Swift Syntax.
+> See https://github.com/apple/swift-package-manager/blob/main/Documentation/Plugins.md#implementing-the-command-plugin-script for more information.
 
 ## Usage
 
-ドキュメント生成には、以下の手順が必要です。
+To generate documents, you need the following steps.
 
-1. ドキュメント生成用のプロジェクトを作成する
-2. ドキュメントを生成する
+1. Create a project for generating documents.
+2. Generate documents.
 
-### ドキュメント生成用のプロジェクトを作成する
+### 1. Create a project for generating documents
 
 #### Swift Package Manager
 
-以下のコマンドを実行してドキュメント生成用のプロジェクトを作ります。
+Run the following command to create a project for generating documents.
 
 ```shell
 swift run XCTestDocProjectGen path/to/your/test/swift/directory XCTestDocProject
 ```
 
-> [!NOTE]
-> 現在 Swift Package Manager では標準のライブラリ以外を利用してプラグインを開発することが許可されていません。
-> 本ツールでは Swift Syntax などの標準ではないライブラリに依存しているため、現在プラグインとしての利用はサポートされていません。
-> See https://github.com/apple/swift-package-manager/blob/main/Documentation/Plugins.md#implementing-the-command-plugin-script for more information.
+### 2. Generate documents
 
-### ドキュメントを生成する
-
-以下のコマンドを実行してドキュメントを生成します。
+Run the following command to generate documents.
 
 ```shell
 cd XCTestDocProject
 swift package generate-documentation
 ```
 
-ドキュメント生成の詳しい内容は、[Swift-DocC Plugin](https://apple.github.io/swift-docc-plugin/documentation/swiftdoccplugin/) のドキュメントを参照してください。
+For more details on document generation, please see the [Swift-DocC Plugin documents](https://apple.github.io/swift-docc-plugin/documentation/swiftdoccplugin/).
