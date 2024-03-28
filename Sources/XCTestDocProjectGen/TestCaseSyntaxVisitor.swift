@@ -17,11 +17,11 @@ class TestCaseSyntaxVisitor: SyntaxVisitor {
     }
 
     override public func visit(_ node: FunctionDeclSyntax) -> SyntaxVisitorContinueKind {
-        let methodName = node.name.text
-        if !methodName.hasPrefix("test") {
+        guard isTarget(node: node) else {
             return .skipChildren
         }
 
+        let methodName = node.name.text
         let testClass = currentTestClass!
 
         print("Found test case \"\(methodName)\" in test class \"\(testClass.name)\"")
@@ -34,6 +34,18 @@ class TestCaseSyntaxVisitor: SyntaxVisitor {
         classes[testClass] = testCases
 
         return .skipChildren
+    }
+
+    private func isTarget(node: FunctionDeclSyntax) -> Bool {
+        guard node.name.text.hasPrefix("test") else {
+            return false
+        }
+
+        for modifier in node.modifiers where modifier.name.text == "private" {
+            return false
+        }
+
+        return true
     }
 
     private func extractDocComment(trivia: Trivia) -> DocComment? {
