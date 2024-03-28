@@ -45,12 +45,16 @@ import Foundation
 
     func run() throws {
         let fileManager = FileManager.default
-        let originalCandidateFileRelativePaths = try fileManager.contentsOfDirectory(atPath: directoryPath)
-        let originalFileRelativePaths = originalCandidateFileRelativePaths.filter { $0.hasSuffix("Tests.swift") }
+
+        let originalFileRelativePaths = findTestSwiftFileRelativePaths(in: directoryPath)
 
         print("Found \(originalFileRelativePaths.count) test files in \(directoryPath)")
         if originalFileRelativePaths.isEmpty {
             exit(0)
+        }
+
+        for originalFileRelativePath in originalFileRelativePaths {
+            print("Found test file at \(originalFileRelativePath)")
         }
 
         guard let packageSwiftFileOriginalUrl = Bundle.module.url(forResource: "Package", withExtension: "swift") else {
@@ -94,6 +98,37 @@ import Foundation
 
             print("Output Swift code in \(destinationPath)")
         }
+    }
+
+    private func findTestSwiftFileRelativePaths(in directoryPath: String) -> [String] {
+        let fileManager = FileManager.default
+        let directoryUrl = URL(fileURLWithPath: directoryPath)
+
+        guard let enumerator = fileManager.enumerator(
+            at: directoryUrl,
+            includingPropertiesForKeys: [.isRegularFileKey]
+        ) else {
+            print("Could not create directory enumerator")
+            return []
+        }
+
+        var originalFilePaths: [String] = []
+
+        for case let fileURL as URL in enumerator {
+            if let isRegularFile = try? fileURL.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile,
+               isRegularFile,
+               isTestSwiftFile(filePath: fileURL.path) {
+                originalFilePaths.append(fileURL.path)
+            }
+        }
+
+        return originalFilePaths.map {
+            $0.replacingOccurrences(of: "\(directoryPath)/", with: "")
+        }
+    }
+
+    private func isTestSwiftFile(filePath: String) -> Bool {
+        filePath.hasSuffix("Tests.swift")
     }
 
     private func createParentDirectoryIfNeeded(fileUrl: URL) throws {
