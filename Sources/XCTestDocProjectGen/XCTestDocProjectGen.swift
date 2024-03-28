@@ -54,7 +54,7 @@ import Foundation
         }
 
         originalFileRelativePaths.forEach { originalFileRelativePath in
-            print("Found \(originalFileRelativePath).")
+            print("Found test file at \(originalFileRelativePath)")
         }
 
         guard let packageSwiftFileOriginalUrl = Bundle.module.url(forResource: "Package", withExtension: "swift") else {
