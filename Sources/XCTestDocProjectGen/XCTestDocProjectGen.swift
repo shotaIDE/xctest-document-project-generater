@@ -45,12 +45,39 @@ import Foundation
 
     func run() throws {
         let fileManager = FileManager.default
-        let originalCandidateFileRelativePaths = try fileManager.contentsOfDirectory(atPath: directoryPath)
-        let originalFileRelativePaths = originalCandidateFileRelativePaths.filter { $0.hasSuffix("Tests.swift") }
+        let directoryUrl = URL(fileURLWithPath: directoryPath)
+        guard let enumerator = fileManager.enumerator(
+            at: directoryUrl,
+            includingPropertiesForKeys: [.isRegularFileKey],
+            options: [],
+            errorHandler: { (url, error) -> Bool in
+                print("Enumerator error at \(url): \(error)")
+                return true
+            }) else {
+            print("Could not create directory enumerator")
+            exit(1)
+        }
 
-        print("Found \(originalFileRelativePaths.count) test files in \(directoryPath)")
-        if originalFileRelativePaths.isEmpty {
+        var originalFilePaths: [String] = []
+
+        for case let fileURL as URL in enumerator {
+            let isRegularFile = try? fileURL.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile ?? false
+            if isRegularFile == true, fileURL.path.hasSuffix("Tests.swift") {
+                originalFilePaths.append(fileURL.path)
+            }
+        }
+
+        print("Found \(originalFilePaths.count) test files in \(directoryPath)")
+        if originalFilePaths.isEmpty {
             exit(0)
+        }
+
+        let originalFileRelativePaths = originalFilePaths.map {
+            $0.replacingOccurrences(of: directoryPath + "/", with: "")
+        }
+
+        originalFileRelativePaths.forEach { originalFileRelativePath in
+            print("Found \(originalFileRelativePath).")
         }
 
         guard let packageSwiftFileOriginalUrl = Bundle.module.url(forResource: "Package", withExtension: "swift") else {
