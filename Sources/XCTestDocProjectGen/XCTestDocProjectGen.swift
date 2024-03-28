@@ -53,7 +53,7 @@ import Foundation
             exit(0)
         }
 
-        originalFileRelativePaths.forEach { originalFileRelativePath in
+        for originalFileRelativePath in originalFileRelativePaths {
             print("Found test file at \(originalFileRelativePath)")
         }
 
@@ -106,7 +106,8 @@ import Foundation
 
         guard let enumerator = fileManager.enumerator(
             at: directoryUrl,
-            includingPropertiesForKeys: [.isRegularFileKey]) else {
+            includingPropertiesForKeys: [.isRegularFileKey]
+        ) else {
             print("Could not create directory enumerator")
             return []
         }
@@ -115,7 +116,7 @@ import Foundation
 
         for case let fileURL as URL in enumerator {
             if let isRegularFile = try? fileURL.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile,
-                isRegularFile,
+               isRegularFile,
                isTestSwiftFile(filePath: fileURL.path) {
                 originalFilePaths.append(fileURL.path)
             }
@@ -127,7 +128,7 @@ import Foundation
     }
 
     private func isTestSwiftFile(filePath: String) -> Bool {
-        return filePath.hasSuffix("Tests.swift")
+        filePath.hasSuffix("Tests.swift")
     }
 
     private func createParentDirectoryIfNeeded(fileUrl: URL) throws {
