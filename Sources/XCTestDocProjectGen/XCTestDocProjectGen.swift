@@ -45,31 +45,12 @@ import Foundation
 
     func run() throws {
         let fileManager = FileManager.default
-        let directoryUrl = URL(fileURLWithPath: directoryPath)
 
-        guard let enumerator = fileManager.enumerator(
-            at: directoryUrl,
-            includingPropertiesForKeys: [.isRegularFileKey]) else {
-            print("Could not create directory enumerator")
-            exit(1)
-        }
+        let originalFileRelativePaths = findTestSwiftFileRelativePaths(in: directoryPath)
 
-        var originalFilePaths: [String] = []
-
-        for case let fileURL as URL in enumerator {
-            let isRegularFile = try? fileURL.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile ?? false
-            if isRegularFile == true, fileURL.path.hasSuffix("Tests.swift") {
-                originalFilePaths.append(fileURL.path)
-            }
-        }
-
-        print("Found \(originalFilePaths.count) test files in \(directoryPath)")
-        if originalFilePaths.isEmpty {
+        print("Found \(originalFileRelativePaths.count) test files in \(directoryPath)")
+        if originalFileRelativePaths.isEmpty {
             exit(0)
-        }
-
-        let originalFileRelativePaths = originalFilePaths.map {
-            $0.replacingOccurrences(of: directoryPath + "/", with: "")
         }
 
         originalFileRelativePaths.forEach { originalFileRelativePath in
@@ -117,6 +98,36 @@ import Foundation
 
             print("Output Swift code in \(destinationPath)")
         }
+    }
+
+    private func findTestSwiftFileRelativePaths(in directoryPath: String) -> [String] {
+        let fileManager = FileManager.default
+        let directoryUrl = URL(fileURLWithPath: directoryPath)
+
+        guard let enumerator = fileManager.enumerator(
+            at: directoryUrl,
+            includingPropertiesForKeys: [.isRegularFileKey]) else {
+            print("Could not create directory enumerator")
+            return []
+        }
+
+        var originalFilePaths: [String] = []
+
+        for case let fileURL as URL in enumerator {
+            if let isRegularFile = try? fileURL.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile,
+                isRegularFile,
+               isTestSwiftFile(filePath: fileURL.path) {
+                originalFilePaths.append(fileURL.path)
+            }
+        }
+
+        return originalFilePaths.map {
+            $0.replacingOccurrences(of: "\(directoryPath)/", with: "")
+        }
+    }
+
+    private func isTestSwiftFile(filePath: String) -> Bool {
+        return filePath.hasSuffix("Tests.swift")
     }
 
     private func createParentDirectoryIfNeeded(fileUrl: URL) throws {
