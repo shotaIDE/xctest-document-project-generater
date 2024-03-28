@@ -31,7 +31,7 @@ let package = Package(
     // name, platforms, products, etc.
     dependencies: [
         // other dependencies
-        .package(url: "https://github.com/shotaIDE/xctest-document-project-generater", from: "0.1.0")
+        .package(url: "https://github.com/shotaIDE/xctest-document-project-generater", from: "0.1.1")
     ],
     targets: [
         // targets
