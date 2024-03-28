@@ -46,14 +46,10 @@ import Foundation
     func run() throws {
         let fileManager = FileManager.default
         let directoryUrl = URL(fileURLWithPath: directoryPath)
+
         guard let enumerator = fileManager.enumerator(
             at: directoryUrl,
-            includingPropertiesForKeys: [.isRegularFileKey],
-            options: [],
-            errorHandler: { (url, error) -> Bool in
-                print("Enumerator error at \(url): \(error)")
-                return true
-            }) else {
+            includingPropertiesForKeys: [.isRegularFileKey]) else {
             print("Could not create directory enumerator")
             exit(1)
         }
