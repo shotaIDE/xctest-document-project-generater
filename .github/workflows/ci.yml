@@ -58,5 +58,5 @@ jobs:
           cat cspell.log
           cat cspell.log | \
             reviewdog -efm='%f:%l:%c - %m' \
-            -name='Code Spell Checker' \
+            -name='CSpell - [Fix guidelines](/CONTRIBUTING.md#typo-fix-guidelines)' \
             -reporter='github-pr-check'
