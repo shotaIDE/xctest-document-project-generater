@@ -6,7 +6,7 @@ private let testMethodIndent = "    "
 public func generateEmptySwiftCode(testClasses: [TestClass: [TestCase]]) -> String {
     let testClassSwiftCodeList = testClasses.map { (testClass: TestClass, testCases: [TestCase]) in
         let testCaseSwiftCodeList = testCases.map { testCase in
-            let maybeDocCommentStrings = testCase.docComment?.map({ "\(testMethodIndent)\($0)" })
+            let maybeDocCommentStrings = testCase.docComment?.map { "\(testMethodIndent)\($0)" }
             let docCommentSwiftCode = if let docCommentStrings = maybeDocCommentStrings {
                 docCommentStrings.joined(separator: "\n") + "\n"
             } else {
