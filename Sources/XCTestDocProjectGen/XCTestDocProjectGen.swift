@@ -1,7 +1,7 @@
 import Foundation
 
 @main public struct XCTestDocProjectGen {
-    private let directoryPath: String
+    private let inputDirectoryPath: String
     private let outputRootDirectory: String
 
     static func main() {
@@ -15,7 +15,7 @@ import Foundation
         let directoryPath = CommandLine.arguments[1]
         let markdownOutputDirectory = CommandLine.arguments[2]
 
-        let module = Self(directoryPath: directoryPath, outputDirectory: markdownOutputDirectory)
+        let module = Self(inputDirectoryPath: directoryPath, outputDirectoryPath: markdownOutputDirectory)
 
         do {
             try module.run()
@@ -38,17 +38,17 @@ import Foundation
         print(usage)
     }
 
-    init(directoryPath: String, outputDirectory: String) {
-        self.directoryPath = directoryPath
-        outputRootDirectory = outputDirectory
+    init(inputDirectoryPath: String, outputDirectoryPath: String) {
+        self.inputDirectoryPath = inputDirectoryPath
+        self.outputRootDirectory = outputDirectoryPath
     }
 
     func run() throws {
         let fileManager = FileManager.default
 
-        let originalFileRelativePaths = findTestSwiftFileRelativePaths(in: directoryPath)
+        let originalFileRelativePaths = findTestSwiftFileRelativePaths(in: inputDirectoryPath)
 
-        print("Found \(originalFileRelativePaths.count) test files in \(directoryPath)")
+        print("Found \(originalFileRelativePaths.count) test files in \(inputDirectoryPath)")
         if originalFileRelativePaths.isEmpty {
             exit(0)
         }
@@ -79,7 +79,7 @@ import Foundation
             .appendingPathComponent("XCTestDocProject")
 
         for originalFileRelativePath in originalFileRelativePaths {
-            let originalFilePath = (directoryPath as NSString).appendingPathComponent(originalFileRelativePath)
+            let originalFilePath = (inputDirectoryPath as NSString).appendingPathComponent(originalFileRelativePath)
             guard let originalSource = try? String(contentsOfFile: originalFilePath) else {
                 print("Unable to read file at path: \(originalFilePath)")
                 continue
