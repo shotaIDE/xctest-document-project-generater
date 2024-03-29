@@ -14,9 +14,39 @@ https://github.com/nicklockwood/SwiftFormat/tree/main?tab=readme-ov-file#trigger
 
 ### CSpell
 
-[CSpell](https://github.com/streetsidesoftware/cspell) を導入しています。
+[CSpell](https://github.com/streetsidesoftware/cspell) is introduced on GitHub checks.
 
-CSpell により指摘された場合は、以下の手順を元に
+GitHub checks may point out typos.
+This may be a false positive, so please correct or change settings according to the guidelines below.
+
+#### Typo fix guidelines
+
+**Case 1: the word appears in SDK or external library**
+
+Add a line containing the target proper noun in all lowercase letters to `Dictionary/dependency.txt` and commit.
+
+```plaintext:Dictionary/dependency.txt
+...
+cocoapods # New line
+```
+
+**Case 2: the word is a proper noun specific to the this project**
+
+Add a line containing the target proper noun in all lowercase letters to `Dictionary/domain.txt` and commit.
+
+```plaintext:Dictionary/domain.txt
+shota # New line
+```
+
+**Other case: If none of the above apply**
+
+This is an English spelling mistake, so please correct it.
+If you are unsure about how to fix it, please refer to the case study below.
+
+- no breaks in words
+  - `pushnotification` to `push notification`
+- Conjugating words that don't exist in English
+  - `registered` to `registered`
 
 ## Develop as a CocoaPods library
 
