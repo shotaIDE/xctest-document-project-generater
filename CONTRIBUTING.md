@@ -35,6 +35,7 @@ bundle install
 Check the Pod spec file with the following command.
 
 ```shell
+# test
 bundle exec pod spec lint XCTestDocProjectGen.podspec
 ```
 
