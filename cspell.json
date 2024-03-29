@@ -4,6 +4,6 @@
     { "name": "domain", "path": "./Dictionary/domain.txt" }
   ],
   "dictionaries": ["dependency", "domain"],
-  "ignorePaths": [".build", "Package.resolved"],
+  "ignorePaths": ["Package.resolved"],
   "enabledLanguageIds": ["swift"]
 }
