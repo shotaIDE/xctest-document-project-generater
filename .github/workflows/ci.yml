@@ -58,5 +58,5 @@ jobs:
           cat cspell.log
           cat cspell.log | \
             reviewdog -efm='%f:%l:%c - %m' \
-            -name='CSpell - [Fix guidelines](/CONTRIBUTING.md#typo-fix-guidelines)' \
+            -name='CSpell - [Fix guidelines](${{ vars.HOW_TO_FIX_TYPO_GUIDELINES_URL }})' \
             -reporter='github-pr-review'
