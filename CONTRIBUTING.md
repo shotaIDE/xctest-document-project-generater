@@ -32,8 +32,8 @@ This may be a false positive, so please correct or change settings according to 
 Add a line containing the target proper noun in all lowercase letters to `Dictionary/dependency.txt` and commit.
 
 ```plaintext:Dictionary/dependency.txt
-...
-cocoapods # New line
+# existing lines...
+cocoapods # new line
 ```
 
 **Case 2: the word is a proper noun specific to this project**
@@ -41,7 +41,8 @@ cocoapods # New line
 Add a line containing the target proper noun in all lowercase letters to `Dictionary/domain.txt` and commit.
 
 ```plaintext:Dictionary/domain.txt
-shota # New line
+# existing lines...
+shota # new line
 ```
 
 **Other case: If none of the above apply**
