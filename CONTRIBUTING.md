@@ -50,7 +50,7 @@ This is an English spelling mistake, so please correct it.
 If you are unsure about how to fix it, please refer to the case study below.
 
 - No breaks in words
-  - Not `pushnotification` but `push notification` <!-- cspell:ignore pushnotification -->
+  - Not `pushnotification` but `push notification`
 - Conjugating words that don't exist in English
   - Not `registed` but `registered` <!-- cspell:ignore registed -->
 
