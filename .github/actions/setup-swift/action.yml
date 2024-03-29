@@ -1,3 +1,5 @@
+name: "Setup Swift"
+description: "Setup cache of Swift Package Manager"
 runs:
   using: "composite"
   steps:

@@ -15,8 +15,7 @@ jobs:
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Swift
-        uses: ./.github/actions/setup-swift
+      - uses: ./.github/actions/setup-swift
       - name: Swift unit tests
         run: swift test
   swift-lint:
@@ -37,12 +36,7 @@ jobs:
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/cache@v3
-        with:
-          path: .build
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-          restore-keys: |
-            ${{ runner.os }}-spm-
+      - uses: ./.github/actions/setup-swift
       - name: SwiftFormat
         run: swift package plugin --allow-writing-to-package-directory swiftformat --lint
   check-spell:
