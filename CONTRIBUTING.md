@@ -23,7 +23,7 @@ cspell .
 ```
 
 GitHub checks may point out typos.
-This may be a false positive, so please correct or change settings according to the guidelines below.
+This may be an false positive sometimes, so please follow the guidelines below to correct your settings or fix the typo.
 
 #### Typo fix guidelines
 
