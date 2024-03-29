@@ -59,4 +59,4 @@ jobs:
           cat cspell.log | \
             reviewdog -efm='%f:%l:%c - %m' \
             -name='CSpell - [Fix guidelines](/CONTRIBUTING.md#typo-fix-guidelines)' \
-            -reporter='github-pr-check'
+            -reporter='github-pr-review'
