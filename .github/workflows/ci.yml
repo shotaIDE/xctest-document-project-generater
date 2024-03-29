@@ -59,4 +59,4 @@ jobs:
           cat cspell.log | \
             reviewdog -efm='%f:%l:%c - %m' \
             -name='Code Spell Checker' \
-            -reporter='github-pr-review'
+            -reporter='github-pr-check'
