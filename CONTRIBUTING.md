@@ -43,10 +43,10 @@ shota # New line
 This is an English spelling mistake, so please correct it.
 If you are unsure about how to fix it, please refer to the case study below.
 
-- no breaks in words
-  - `pushnotification` to `push notification`
+- No breaks in words
+  - Not `pushnotification` but `push notification` <!-- cspell:ignore pushnotification -->
 - Conjugating words that don't exist in English
-  - `registered` to `registered`
+  - Not `registed` but `registered` <!-- cspell:ignore registed -->
 
 ## Develop as a CocoaPods library
 
