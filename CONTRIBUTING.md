@@ -12,6 +12,49 @@ To format Swift codes on Xcode, see the following.
 
 https://github.com/nicklockwood/SwiftFormat/tree/main?tab=readme-ov-file#trigger-plugin-from-xcode
 
+### CSpell
+
+[CSpell](https://github.com/streetsidesoftware/cspell) is introduced on GitHub checks.
+
+To check spelling on local, see the following.
+
+```shell
+cspell .
+```
+
+GitHub checks may point out typos.
+This may be an false positive, so please follow the guidelines below to correct ignore settings or fix the typo.
+
+#### Typo fix guidelines
+
+**Case 1: the word appears in SDK or external library**
+
+Add a line containing the target word in all lowercase letters to `Dictionary/dependency.txt`.
+
+```plaintext:Dictionary/dependency.txt
+# existing lines...
+cocoapods # new line
+```
+
+**Case 2: the word is a proper noun specific to this project**
+
+Add a line containing the target word in all lowercase letters to `Dictionary/domain.txt` and commit.
+
+```plaintext:Dictionary/domain.txt
+# existing lines...
+shota # new line
+```
+
+**Other case: If none of the above apply**
+
+This is an English spelling mistake, so please correct it.
+If you are unsure about how to fix it, please refer to the case study below.
+
+- No breaks in words
+  - Not `pushnotification` but `push notification` <!-- cspell:ignore pushnotification -->
+- Conjugating words that don't exist in English
+  - Not `registed` but `registered` <!-- cspell:ignore registed -->
+
 ## Develop as a CocoaPods library
 
 #### Environment

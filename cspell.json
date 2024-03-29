@@ -1,0 +1,9 @@
+{
+  "dictionaryDefinitions": [
+    { "name": "dependency", "path": "./Dictionary/dependency.txt" },
+    { "name": "domain", "path": "./Dictionary/domain.txt" }
+  ],
+  "dictionaries": ["dependency", "domain"],
+  "ignorePaths": ["Package.resolved"],
+  "enabledLanguageIds": ["swift"]
+}
