@@ -8,6 +8,17 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  swift-unit-test:
+    name: Swift unit tests
+    permissions:
+      contents: read
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Swift
+        uses: ./.github/actions/setup-swift
+      - name: Swift unit tests
+        run: swift test
   swift-lint:
     name: SwiftLint
     permissions:
