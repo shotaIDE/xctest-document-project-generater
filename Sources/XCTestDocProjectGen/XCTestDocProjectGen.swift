@@ -100,30 +100,44 @@ import Foundation
         }
     }
 
+    private func convertToAbsolutePath(path: String) -> String {
+        let fileManager = FileManager.default
+
+        let currentDirectoryUrl = URL(fileURLWithPath: fileManager.currentDirectoryPath)
+
+        let absoluteUrl = URL(fileURLWithPath: path, relativeTo: currentDirectoryUrl).standardized
+
+        return absoluteUrl.path
+    }
+
     private func findTestSwiftFileRelativePaths(in directoryPath: String) -> [String] {
         let fileManager = FileManager.default
-        let directoryUrl = URL(fileURLWithPath: directoryPath)
+        let directoryAbsolutePath = convertToAbsolutePath(path: directoryPath)
+        let directoryAbsoluteUrl = URL(fileURLWithPath: directoryAbsolutePath)
+
+        print("Target directory path: \(directoryPath)")
+        print("Target directory absolute path: \(directoryAbsolutePath)")
 
         guard let enumerator = fileManager.enumerator(
-            at: directoryUrl,
+            at: directoryAbsoluteUrl,
             includingPropertiesForKeys: [.isRegularFileKey]
         ) else {
             print("Could not create directory enumerator")
             return []
         }
 
-        var originalFilePaths: [String] = []
+        var originalFileAbsolutePaths: [String] = []
 
         for case let fileURL as URL in enumerator {
             if let isRegularFile = try? fileURL.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile,
                isRegularFile,
                isTestSwiftFile(filePath: fileURL.path) {
-                originalFilePaths.append(fileURL.path)
+                originalFileAbsolutePaths.append(fileURL.path)
             }
         }
 
-        return originalFilePaths.map {
-            $0.replacingOccurrences(of: "\(directoryPath)/", with: "")
+        return originalFileAbsolutePaths.map {
+            $0.replacingOccurrences(of: "\(directoryAbsolutePath)/", with: "")
         }
     }
 
