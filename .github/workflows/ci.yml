@@ -50,7 +50,7 @@ jobs:
         run: npm install -g cspell
       - name: Check Code Spell
         run: |
-          cspell . --config cspell.json > cspell.log
+          cspell . > cspell.log
           cat cspell.log
       - name: Run reviewdog for Code Spell Checker
         if: failure()

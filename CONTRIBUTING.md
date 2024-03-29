@@ -16,6 +16,12 @@ https://github.com/nicklockwood/SwiftFormat/tree/main?tab=readme-ov-file#trigger
 
 [CSpell](https://github.com/streetsidesoftware/cspell) is introduced on GitHub checks.
 
+To check spelling on local, see the following.
+
+```shell
+cspell .
+```
+
 GitHub checks may point out typos.
 This may be a false positive, so please correct or change settings according to the guidelines below.
 
