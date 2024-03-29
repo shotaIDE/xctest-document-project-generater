@@ -2,7 +2,7 @@ import Foundation
 
 @main public struct XCTestDocProjectGen {
     private let inputDirectoryPath: String
-    private let outputRootDirectory: String
+    private let outputDirectoryPath: String
 
     static func main() {
         if CommandLine.arguments.count == 1
@@ -40,7 +40,7 @@ import Foundation
 
     init(inputDirectoryPath: String, outputDirectoryPath: String) {
         self.inputDirectoryPath = inputDirectoryPath
-        self.outputRootDirectory = outputDirectoryPath
+        self.outputDirectoryPath = outputDirectoryPath
     }
 
     func run() throws {
@@ -62,7 +62,7 @@ import Foundation
             exit(1)
         }
 
-        let packageSwiftFileOutputUrl = URL(fileURLWithPath: outputRootDirectory)
+        let packageSwiftFileOutputUrl = URL(fileURLWithPath: outputDirectoryPath)
             .appendingPathComponent("Package.swift")
 
         try createParentDirectoryIfNeeded(fileUrl: packageSwiftFileOutputUrl)
@@ -74,7 +74,7 @@ import Foundation
             exit(2)
         }
 
-        let outputSourceDirectory = URL(fileURLWithPath: outputRootDirectory)
+        let outputSourceDirectory = URL(fileURLWithPath: outputDirectoryPath)
             .appendingPathComponent("Sources")
             .appendingPathComponent("XCTestDocProject")
 
