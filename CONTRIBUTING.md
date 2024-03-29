@@ -30,7 +30,7 @@ Add a line containing the target proper noun in all lowercase letters to `Dictio
 cocoapods # New line
 ```
 
-**Case 2: the word is a proper noun specific to the this project**
+**Case 2: the word is a proper noun specific to this project**
 
 Add a line containing the target proper noun in all lowercase letters to `Dictionary/domain.txt` and commit.
 
