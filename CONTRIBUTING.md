@@ -23,13 +23,13 @@ cspell .
 ```
 
 GitHub checks may point out typos.
-This may be an false positive sometimes, so please follow the guidelines below to correct your settings or fix the typo.
+This may be an false positive, so please follow the guidelines below to correct ignore settings or fix the typo.
 
 #### Typo fix guidelines
 
 **Case 1: the word appears in SDK or external library**
 
-Add a line containing the target proper noun in all lowercase letters to `Dictionary/dependency.txt` and commit.
+Add a line containing the target word in all lowercase letters to `Dictionary/dependency.txt`.
 
 ```plaintext:Dictionary/dependency.txt
 # existing lines...
@@ -38,7 +38,7 @@ cocoapods # new line
 
 **Case 2: the word is a proper noun specific to this project**
 
-Add a line containing the target proper noun in all lowercase letters to `Dictionary/domain.txt` and commit.
+Add a line containing the target word in all lowercase letters to `Dictionary/domain.txt` and commit.
 
 ```plaintext:Dictionary/domain.txt
 # existing lines...
