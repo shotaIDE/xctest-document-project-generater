@@ -3,16 +3,22 @@ updates:
   - package-ecosystem: "swift"
     directory: "/"
     open-pull-requests-limit: 1
+    reviewers:
+      - "shotaIDE"
     schedule:
       interval: "daily"
     versioning-strategy: "widen"
   - package-ecosystem: "bundler"
     directory: "/"
     open-pull-requests-limit: 1
+    reviewers:
+      - "shotaIDE"
     schedule:
       interval: "daily"
   - package-ecosystem: "github-actions"
     directory: "/"
     open-pull-requests-limit: 1
+    reviewers:
+      - "shotaIDE"
     schedule:
       interval: "daily"
