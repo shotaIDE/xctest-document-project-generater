@@ -1,2 +1,3 @@
+automerge
 cocoapods
 podspec
