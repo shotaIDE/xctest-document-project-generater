@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": ["ruby-version", "swift"],
+  "extends": ["config:recommended", ":pinDevDependencies"],
+  "ignorePaths": ["Sources/XCTestDocProjectGen/Template/**"],
+  "labels": ["dependencies"],
+  "packageRules": [
+    {
+      "matchManagers": ["ruby-version"],
+      "addLabels": ["ruby"],
+      "automerge": true
+    },
+    {
+      "matchManagers": ["swift"],
+      "addLabels": ["swift"],
+      "rangeStrategy": "widen"
+    }
+  ],
+  "prConcurrentLimit": 1,
+  "reviewers": ["shotaIDE"]
+}
