@@ -1,10 +1,20 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "enabledManagers": ["ruby-version", "swift"],
+  "enabledManagers": ["bundler", "github-actions", "ruby-version", "swift"],
   "extends": ["config:recommended", ":pinDevDependencies"],
   "ignorePaths": ["Sources/XCTestDocProjectGen/Template/**"],
   "labels": ["dependencies"],
   "packageRules": [
+    {
+      "matchManagers": ["bundler"],
+      "addLabels": ["ruby"],
+      "automerge": true
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "addLabels": ["github_actions"],
+      "automerge": true
+    },
     {
       "matchManagers": ["ruby-version"],
       "addLabels": ["ruby"],
