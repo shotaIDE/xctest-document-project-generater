@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "enabledManagers": ["bundler", "github-actions", "ruby-version", "swift"],
-  "extends": ["config:recommended", ":pinDevDependencies"],
+  "extends": ["config:best-practices"],
   "ignorePaths": ["Sources/XCTestDocProjectGen/Template/**"],
   "labels": ["dependencies"],
   "packageRules": [
