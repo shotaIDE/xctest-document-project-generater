@@ -14,7 +14,7 @@ jobs:
       contents: read
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: Install SwiftLint
         run: brew install swiftlint
       - name: SwiftLint
@@ -25,8 +25,8 @@ jobs:
       contents: read
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/cache@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
         with:
           path: .build
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
@@ -41,9 +41,9 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: Install reviewdog
-        uses: reviewdog/action-setup@v1
+        uses: reviewdog/action-setup@3f401fe1d58fe77e10d665ab713057375e39b887 # v1
         with:
           reviewdog_version: latest
       - name: Install Code Spell Checker
