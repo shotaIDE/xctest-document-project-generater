@@ -36,10 +36,7 @@ let package = Package(
         ),
         .testTarget(
             name: "XCTestDocProjectGenTests",
-            dependencies: ["XCTestDocProjectGen"],
-            plugins: [
-                .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
-            ]
+            dependencies: ["XCTestDocProjectGen"]
         )
     ]
 )

@@ -8,6 +8,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  swift-unit-test:
+    name: Swift unit tests
+    permissions:
+      contents: read
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: ./.github/actions/setup-swift
+      - name: Swift unit tests
+        run: swift test
   swift-lint:
     name: SwiftLint
     permissions:
@@ -26,12 +36,7 @@ jobs:
     runs-on: macos-14
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
-      - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4
-        with:
-          path: .build
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
-          restore-keys: |
-            ${{ runner.os }}-spm-
+      - uses: ./.github/actions/setup-swift
       - name: SwiftFormat
         run: swift package plugin --allow-writing-to-package-directory swiftformat --lint
   check-spell:
