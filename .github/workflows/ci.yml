@@ -14,7 +14,7 @@ jobs:
       contents: read
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: ./.github/actions/setup-swift
       - name: Swift unit tests
         run: swift test
@@ -24,7 +24,7 @@ jobs:
       contents: read
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Install SwiftLint
         run: brew install swiftlint
       - name: SwiftLint
@@ -35,7 +35,7 @@ jobs:
       contents: read
     runs-on: macos-14
     steps:
-      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: ./.github/actions/setup-swift
       - name: SwiftFormat
         run: swift package plugin --allow-writing-to-package-directory swiftformat --lint
@@ -46,7 +46,7 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Install reviewdog
         uses: reviewdog/action-setup@3f401fe1d58fe77e10d665ab713057375e39b887 # v1
         with:
